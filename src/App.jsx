@@ -8,6 +8,7 @@ import './styles/App.css'
 function App() {
   const [emails, setEmails] = useState(initialEmails)
   const [hideRead, setHideRead] = useState(false)
+  const [onlyStarred, setOnlyStarred] = useState(false)
 
   const getStarredCount = () => {
     return emails.reduce((count, email) => {
@@ -67,7 +68,7 @@ function App() {
       <ul>
         {
           data.emails.map((email) => {
-            if (!hideRead || !email.read) {
+            if ((!hideRead || !email.read) && (!onlyStarred || email.starred)) {
               return <RenderEmail key={email.id} id={email.id} sender={email.sender} title={email.title} starred={email.starred} read={email.read}/>
             }
             return <></>
@@ -77,24 +78,21 @@ function App() {
     )
   }
 
-  // console.log("emails")
-  // console.log(emails)
-
   return (
     <div className="app">
       <Header />
       <nav className="left-menu">
         <ul className="inbox-list">
           <li
-            className="item active"
-            // onClick={() => {}}
+            className={onlyStarred ? "item" : "item active"}
+            onClick={() => {setOnlyStarred(false)}}
           >
             <span className="label">Inbox</span>
             <span className="count">{getInboxCount()}</span>
           </li>
           <li
-            className="item"
-            // onClick={() => {}}
+            className={onlyStarred ? "item active" : "item"}
+            onClick={() => {setOnlyStarred(true)}}
           >
             <span className="label">Starred</span>
             <span className="count">{getStarredCount()}</span>
