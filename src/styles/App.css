@@ -81,6 +81,44 @@
   text-overflow: ellipsis;
 }
 
+/* .email .select-checkbox {
+  appearance: none;
+  position: relative;
+  display: grid;
+  align-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #00000050;
+  border-radius: 4px;
+}
+
+.email .select-checkbox:focus {
+  outline: none;
+}
+
+.email .select-checkbox::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.email .select-checkbox:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.email .select-checkbox:checked::before {
+  display: block;
+  content: '✔';
+  color: white;
+  font-size: 16px;
+} 
+*/
 .email .star-checkbox {
   appearance: none;
   position: relative;
