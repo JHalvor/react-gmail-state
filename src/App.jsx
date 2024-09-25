@@ -1,11 +1,56 @@
+
+import { useState } from "react"
 import Header from './components/Header'
 import initialEmails from './data/emails'
 
 import './styles/App.css'
 
 function App() {
+  const [emails, setEmails] = useState(initialEmails)
+  // const [inboxCounter, setInboxCounter] = useState(0)
+  // const [starredCounter, setStarredCounter] = useState(0)
+  // const [selected, setSelected] = useState([])
   // Use initialEmails for state
-  console.log(initialEmails)
+
+  const updateStarred = (emailId) => {
+    setEmails((emails) => emails.find((email) => email.id === emailId).starred 
+                       = !emails.find((email) => email.id === emailId).starred)
+  }
+
+  const RenderEmail = (emailData) => {
+    //const email = document.createElement("li")
+    //email.className = "email"
+  
+    //email.appendChild(RenderSelect())
+    return (
+      <li className="email">
+        <div className="select">
+        <input
+          className="select-checkbox"
+          type="checkbox"/>
+        </div>
+        <div className="star">
+        <input
+          className="star-checkbox"
+          type="checkbox"
+          onClick={() => updateStarred(emailData.id)}
+        />
+        </div>
+        <div className="sender">{emailData.sender}</div>
+        <div className="title">{emailData.title}</div>
+      </li>
+    )
+  }
+
+  const RenderEmails = (data) => {
+    const { id, sender, title } = data.emails[0]
+    return (
+      <RenderEmail id={id} sender={sender} title={title}/>
+    )
+  }
+
+  console.log("emails")
+  console.log(emails)
 
   return (
     <div className="app">
@@ -28,7 +73,7 @@ function App() {
           </li>
 
           <li className="item toggle">
-            <label for="hide-read">Hide read</label>
+            <label htmlFor="hide-read">Hide read</label>
             <input
               id="hide-read"
               type="checkbox"
@@ -38,7 +83,9 @@ function App() {
           </li>
         </ul>
       </nav>
-      <main className="emails">{/* Render a list of emails here */}</main>
+      <main className="emails">
+        <RenderEmails emails = {emails}/>
+      </main>
     </div>
   )
 }
